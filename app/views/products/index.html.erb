@@ -1,0 +1,13 @@
+<h1>Products:</h1>
+
+<% @products.each do |product| %>
+  <%= link_to product_path(product.id), class: 'product' do %>
+    <h2><%= product.title %></h2>
+  <% end %>
+  <%= image_tag product.photo, width: 200 if product.photo.attached? %>
+  <p><%= product.description %></p>
+  <p><%= product.price %></p>
+<% end%>
+
+<%= link_to 'Add a new product', new_product_path %>
+    

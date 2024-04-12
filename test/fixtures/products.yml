@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: Ps5
+  description: Nueva con rayones
+  price: 2000
+
+two:
+  title: Iphone15
+  description: Rayones leves
+  price: 250
