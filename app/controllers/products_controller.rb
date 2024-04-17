@@ -3,7 +3,26 @@
 # ProductsController handles actions related to Product in the application.
 class ProductsController < ApplicationController
   def index
-    @products ||= Product.all
+    @categories = Category.order(name: :asc).load_async
+
+    @products = Product.with_attached_photo.where(
+            [
+            params[:min_price].present? ? "price >= #{params[:min_price]}" : nil,
+            params[:max_price].present? ? "price <= #{params[:max_price]}" : nil,
+            params[:category_id].present? ? "category_id = #{params[:category_id]}" : nil,
+            ].compact.join(" AND ")
+        )
+    if params[:query_text].present?
+      @products = @products.search_full_text(params[:query_text])
+    end
+
+    if params[:order_by].present?
+      order_by = Product::ORDER_BY.fetch(params[:order_by]&.downcase.to_sym, Product::ORDER_BY[:newest])
+      
+      @products = @products.order(order_by).load_async
+    end
+
+    @pagy, @products = pagy_countless(@products, items: 12)
   end
 
   def show
@@ -11,7 +30,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    Product.new
+    @product = Product.new
   end
 
   def edit
@@ -21,7 +40,7 @@ class ProductsController < ApplicationController
   def create
     product = Product.new(product_params)
     if product.save
-      flash[:notice] = 'Product created successfully'
+      flash[:notice] = t('.created')
       redirect_to product_path(product)
     else
       notice = product.errors.full_messages.join(', ')
@@ -32,11 +51,11 @@ class ProductsController < ApplicationController
 
   def update
     product_to_update = current_product
-    if product.update(product_params)
-      flash[:notice] = 'Product updated successfully'
-      redirect_to product_path(product)
+    if product_to_update.update(product_params)
+      flash[:notice] = t('.updated')
+      redirect_to product_path(product_to_update)
     else
-      notice = product.errors.full_messages.join(', ')
+      notice = product_to_update.errors.full_messages.join(', ')
       flash[:alert] = notice
       render :edit, status: :unprocessable_entity
     end
@@ -44,8 +63,9 @@ class ProductsController < ApplicationController
 
   def destroy
     current_product.destroy
-    flash[:notice] = 'Product deleted successfully'
-    redirect_to products_path
+
+    flash[:notice] = t('.destroyed')
+    redirect_to products_path , status: :see_other
   end
 
   private
@@ -55,6 +75,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:title, :photo, :description, :price)
+    params.require(:product).permit(:title, :photo, :description, :price, :category_id)
   end
 end

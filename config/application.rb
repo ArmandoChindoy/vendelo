@@ -16,6 +16,12 @@ module Vendelo
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # Set the available locales to English and Spanish
+    config.i18n.available_locales = %i[en es]
+
+    # Set the default locale to Spanish
+    config.i18n.default_locale = :en
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -23,5 +29,8 @@ module Vendelo
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Allow multiquery
+    config.active_record.async_query_executor = :global_thread_pool
   end
 end

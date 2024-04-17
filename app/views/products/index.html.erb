@@ -1,13 +1,29 @@
-<h1>Products:</h1>
+<%= turbo_frame_tag 'home' do %>
+  <h2><%= t('.title') %></h2>
 
-<% @products.each do |product| %>
-  <%= link_to product_path(product.id), class: 'product' do %>
-    <h2><%= product.title %></h2>
+  <div>
+    <%= form_with url: products_path, method: :get do |f| %>
+      <%= f.text_field :query_text, placeholder: t('.filters.query_text'), value: params[:query_text] %>
+      <%= f.number_field :min_price, placeholder: t('.filters.min_price'), value: params[:min_price] %>
+      <%= f.number_field :max_price, placeholder: t('.filters.max_price'), value: params[:max_price] %>
+      <%= f.select :order_by, options_for_select(Product::ORDER_BY.keys.map{ |order| [order, t(".filters.orders.#{order}")] }, params[:order_by]), { include_blanck: true}, {onChange: 'this.form.requestSubmit()'} %>
+      <%= f.submit t('.filters.submit') %>
+    <%end%>
+  </div>
+
+  <div>
+    <%= link_to t('products.categories.title'), categories_path()%>
+  </div>
+  <div>
+    <%= link_to t('.categories.all') ,products_path %>
+    <%= render partial: 'category', collection: @categories %>
+  </div>
+  <div>
+    <%= link_to t('.create'), new_product_path %>
+  </div>
+  <%= turbo_frame_tag "products-#{@pagy.page}", class: 'products' do %>
+    <%= render partial: 'product', collection: @products %>
+    <%= turbo_frame_tag "products-#{@pagy.next}", class: 'products', src: pagy_url_for(@pagy, @pagy.next), loading: :lazy if @pagy.next%>
   <% end %>
-  <%= image_tag product.photo, width: 200 if product.photo.attached? %>
-  <p><%= product.description %></p>
-  <p><%= product.price %></p>
-<% end%>
+<% end %>
 
-<%= link_to 'Add a new product', new_product_path %>
-    

@@ -11,6 +11,11 @@
     <%= form.label :price %><br>
     <%= form.text_field :price %>
   </p>
+
+  <div>
+    <%= form.collection_select :category_id, Category.all, :id, :name %>
+  <div>
+
   <p>
     <%= form.label :photo %><br>
     <%= form.file_field :photo %>

@@ -28,4 +28,86 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      product: 'Product'
+      category: 'Category'
+    attributes:
+      product:
+        name: 'Titulo'
+        description: 'Description'
+        price: 'Price'
+        photo: 'Photo'
+        category: 'Category'
+      category:
+        name: 'Name'
+    errors:
+      models:
+        product:
+          attributes:
+            name:
+              blank: 'Name cannot be blank'
+            description:
+              blank: 'Description cannot be blank'
+            price:
+              blank: 'Price cannot be blank'
+              not_a_number: 'Price must be a number'
+              greater_than: 'Price must be greater than 0'
+            category:
+              blank: 'Category cannot be blank'
+        category:
+          attributes:
+            name:
+              blank: 'Name cannot be blank'
+  common:
+    confirm: 'Are you sure?'
+    yes: 'Si'
+    no: 'No'
+    return: 'Return'
+  products:
+    categories:
+      title: 'Categories'
+    new:
+      title: 'New product'
+    edit:
+      title: 'You want edit this product'
+    update:
+      updated: 'Product updated successfully'
+    show:
+      title: 'Show this product'
+      edit: 'Edit'
+      destroy: 'Delete'
+    index:
+      title: 'List of all products'
+      categories:
+        all: 'All'
+      filters:
+        title: 'Filters'
+        search: 'Search'
+        category: 'Category'
+        min_price: 'Min price'
+        max_price: 'Max price'
+        query_text: 'What do you want to search?'
+        submit: 'Filter'
+        orders:
+          newest: 'Newest'
+          oldest: 'Oldest'
+          expensive: 'Expensive'
+          cheapest: 'Cheapest'
+    create:
+      created: 'Product created successfully'
+    destroy:
+      destroyed: 'Product deleted successfully'
+  categories:
+    new:
+      title: 'New category'
+    edit:
+      title: 'Edit category'
+    update:
+      updated: 'Category updated successfully'
+    index:
+      title: 'List of all categories'
+    create:
+      created: 'Category created successfully'
+    destroy:
+      destroyed: 'Category deleted successfully'

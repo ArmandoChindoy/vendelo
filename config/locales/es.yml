@@ -1,0 +1,86 @@
+es:
+  activerecord:
+    models:
+      product: 'Producto'
+      category: 'Categoría'
+    attributes:
+      product:
+        title: 'Titulo'
+        description: 'Descripción'
+        price: 'Precio'
+        photo: 'Foto'
+        category: 'Categoría'
+      category:
+        name: 'Nombre'
+    errors:
+      models:
+        product:
+          attributes:
+            name:
+              blank: 'El nombre no puede estar en blanco'
+            description:
+              blank: 'La descripción no puede estar en blanco'
+            price:
+              blank: 'El precio no puede estar en blanco'
+              not_a_number: 'El precio debe ser un número'
+              greater_than: 'El precio debe ser mayor a 0'
+        category:
+          attributes:
+            name:
+              blank: 'El nombre no puede estar en blanco'
+  common:
+    confirm: '¿Estas seguro?'
+    yes: 'Si'
+    no: 'No'
+    return: 'Regresar'
+  products:
+    new:
+      title: 'Nuevo producto'
+    edit:
+      title: 'Editar producto'
+    update:
+      updated: 'Producto actualizado'
+    show:
+      title: 'Mostrar producto'
+      edit: 'Editar'
+      destroy: 'Eliminar'
+    index:
+      title: 'Listado de productos'
+      create: 'Crear producto'
+      categories:
+        all: 'Todos'
+      filters:
+        title: 'Filtros'
+        category: 'Categoría'
+        min_price: 'Precio mínimo'
+        max_price: 'Precio máximo'
+        query_text: '¿Que quieres buscar?'
+        submit: 'Filtrar'
+        orders:
+          newest: 'Más nuevo'
+          oldest: 'Más antiguo'
+          expensive: 'Más caro'
+          cheapest: 'Más barato'
+    create:
+      created: 'Producto creado'
+    destroy:
+      deleted: 'Producto eliminado'
+  categories:
+    new:
+      title: 'Nueva categoría'
+    edit:
+      title: 'Editar categoría'
+    update:
+      updated: 'Categoría actualizada'
+    show:
+      title: 'Mostrar categoría'
+      edit: 'Editar'
+      destroy: 'Eliminar'
+    index:
+      title: 'Listado de categorías'
+      create: 'Crear categoría'
+    create:
+      created: 'Categoría creada'
+    destroy:
+      destroyed: 'Categoría eliminada'
+    
